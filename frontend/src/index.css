@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text: white;
+  --button-primary: #B7DF95;
+  --button-secondary: #7E9869;
+  --accent: #56CC74;
+  --extra-green: #22261F;
+  --background: #070C04;
+  --extra: #10140E;
+}
