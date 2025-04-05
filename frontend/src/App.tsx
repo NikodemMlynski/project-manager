@@ -13,6 +13,8 @@ import ProjectsPage from './pages/Projects/ProjectsPage'
 import ProjectPage from './pages/Projects/ProjectPage'
 import SignUpPage from './pages/Authentication/SignUpPage'
 import SignInPage from './pages/Authentication/SignInPage'
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -90,6 +92,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router}/>
+      <ToastContainer/>
     </QueryClientProvider>
   )
 }
