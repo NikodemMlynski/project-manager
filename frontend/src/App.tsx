@@ -5,6 +5,14 @@ import { AuthProvider } from './context/AuthProvider'
 import AuthLayout from './layouts/AuthLayout'
 import ProtectedRoute from './components/Authorization/ProtectedRoute'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import TodayTasksPage from './pages/Tasks/TodayTasksPage'
+import UpcomingTasksPage from './pages/Tasks/UpcomingTasksPage'
+import ArchivedTasksPage from './pages/Tasks/ArchivedTasksPage'
+import TasksByQueryKeyPage from './pages/Tasks/TasksByQueryPage'
+import ProjectsPage from './pages/Projects/ProjectsPage'
+import ProjectPage from './pages/Projects/ProjectPage'
+import SignUpPage from './pages/Authentication/SignUpPage'
+import SignInPage from './pages/Authentication/SignInPage'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -13,7 +21,12 @@ const router = createBrowserRouter([
     element: <AuthProvider><AuthLayout/></AuthProvider>,
     children: [
       {
-        path: 'signin', element: <h1>Strona z formularzem logowania</h1>
+        path: 'signin', 
+        element: <SignInPage/>,
+      },
+      {
+        path: 'signup',
+        element: <SignUpPage/>
       }
     ]
   },
@@ -27,30 +40,30 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <h1>Tu będzie dashboard czyli dzisejsze zadania</h1>
+            element: <TodayTasksPage/>
           },
           {
             path: '/tasks',
             children: [
               {
                 index: true,
-                element: <h1>Liste wszystkich zadań które nie są skonczone</h1>
+                element: <TodayTasksPage/>
               },
               {
                 path: 'today',
-                element: <h1>Dzisiejsze zadania</h1>
+                element: <TodayTasksPage/>
               },
               {
                 path: 'upcoming',
-                element: <h1>Nadchodzące zadania</h1>
+                element: <UpcomingTasksPage/>
               },
               {
                 path: 'archive',
-                element: <h1>Zarchiwizowane zadania</h1>
+                element: <ArchivedTasksPage/>
               },
               {
                 path: 'search/:query',
-                element: <h1>task po query key</h1>
+                element: <TasksByQueryKeyPage/>
               }
             ]
           },
@@ -59,11 +72,11 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <h1>Lista wszystkich projektow</h1>
+                element: <ProjectsPage/>
               },
               {
                 path: ':id',
-                element: <h1>Projekt po id</h1>
+                element: <ProjectPage/>
               }
             ]
           }
