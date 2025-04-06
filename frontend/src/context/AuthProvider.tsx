@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface IUser {
     id: number;
+    username: string;
     email: string;
     created_at: Date;
 }
@@ -29,7 +30,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
             const token = localStorage.getItem(TOKEN_STORAGE_KEY);
             if(!token) return null;
 
-            const response = await fetch(`${API_URL}users`, {
+            const response = await fetch(`${API_URL}users/me`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
