@@ -11,9 +11,10 @@ import {
   FormLabel,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useLoginMutation } from "./useLoginMutation"
+import { ITokenData, useLoginMutation } from "./useLoginMutation"
 import { useAuth } from "@/context/AuthProvider";
 import { Link } from "react-router-dom";
+import { TOKEN_STORAGE_KEY } from "@/config/constants";
 
 const formSchema = z.object({
   email: z.string(),
@@ -34,9 +35,9 @@ export function LoginForm() {
     mutation.mutate(
         {email: values.email, password: values.password},
         {
-            onSuccess: (data: {access_token: string, token_type: string}) => {
+            onSuccess: (data: ITokenData) => {
                 console.log(data);
-                login(data.access_token)
+                login(data[TOKEN_STORAGE_KEY])
                 
                 toast.success("Succesfully login");
             },

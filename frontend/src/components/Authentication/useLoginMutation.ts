@@ -1,39 +1,21 @@
-import { API_URL } from "@/config/constants";
+import { API_URL, TOKEN_STORAGE_KEY } from "@/config/constants";
+import { postData } from "@/utils/fetchUtils";
 import { useMutation } from "@tanstack/react-query";
 
+interface ILoginData {
+    email: string;
+    password: string;
+}
+export interface ITokenData {
+    [TOKEN_STORAGE_KEY]: string;
+    token_type: string;
+}
 export function useLoginMutation() {
 
-    return useMutation({
-        mutationFn: async (loginData: {email: string, password: string}) => {
-            const response = await fetch(`${API_URL}auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(loginData)
-            })
-            if(!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.detail || "Unknown error occured")
-            }
-            return response.json();
-        }
+    return useMutation<ITokenData, Error, ILoginData>({
+        mutationFn: async (loginData: ILoginData) => 
+            postData(`${API_URL}auth/login`, loginData)
+
 
     })
 }
-    // const response = await fetch(`${API_URL}users`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         });
-
-    //         if(!response.ok) throw new Error("Błąd logowania");
-    //         return response.json();
-    //     },
-    //     onSuccess: (data) => {
-    //         queryClient.setQueryData(["user"], data);
-    //         navigate("/");
-    //     },
-    //     onError: () => {
-    //         logout();
-    //     }
